@@ -4,11 +4,23 @@ define(
     function () {
         
         function Screen(canvas, resolution) {
-            var context = canvas.getContext('2d');
+            var context = canvas.getContext('2d'),
+                dimensions = [ canvas.width, canvas.height ];
+
+            function line(start, end, color, palette) {
+                palette = palette || [ undefined, 'white' ];                
+                color = palette[color];
+
+                
+
+                context.beginPath();
+                context.moveTo(start[0], start[1]);
+                context.lineTo(end[0], end[1]);
+                context.closePath();
+            }
 
             function draw(sprite, position, palette) {
-                var palette = palette || [ undefined, 'white' ];
-
+                palette = palette || [ undefined, 'white' ];
                 position = position || [ 0, 0 ];
 
                 sprite.forEach(function (row, u) {
@@ -25,11 +37,8 @@ define(
             }
     
             resolution = resolution || [ 256, 256 ];
-            resulution = Array.isArray(resolution) ? resolution : [ resolution, resolution ];
-
-            canvas.style['background-color'] = 'black';
-            canvas.width = resolution[0];
-            canvas.height = resolution[1];
+            resulution = Array.isArray(resolution) ? 
+                resolution : [ resolution, resolution ];
 
             return {
                 clear: clear,
