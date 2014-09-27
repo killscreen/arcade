@@ -1,7 +1,7 @@
 /*global define*/
 
 define(
-    ['Context'],
+    ['./Context'],
     function (Context) {
         "use strict";
 

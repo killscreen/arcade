@@ -1,7 +1,10 @@
-/*global define*/
+/*global define,document*/
 
 define(
-    function () {
-        window.alert("Hello, world.");
+    ['./Screen'],
+    function (Screen) {
+        var canvas = document.getElementById('screen'),
+            screen = new Screen(canvas);
+
     }
 );
