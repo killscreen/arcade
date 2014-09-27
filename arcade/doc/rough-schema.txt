@@ -1,0 +1,19 @@
+{
+    "screen": drawable
+}
+
+drawable is:
+
+string
+boolean[][]
+drawable-object[]
+drawable-object
+
+drawable-object is:
+
+{
+    "translation?": [ x, y ].
+    "color?": [ r, g, b, a ],
+    "contents": drawable-object
+
+
