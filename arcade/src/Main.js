@@ -1,15 +1,23 @@
-/*global define,document*/
+/*global define,document,window*/
 
 define(
-    ['./Screen', './Display'],
-    function (Screen, Display) {
+    ['./Screen', './Display', './Driver', './Engine', './Game', './Clock', 'games/paddles/Paddles'],
+    function (Screen, Display, Driver, Engine, Game, Clock, Paddles) {
         var canvas = document.getElementById('screen'),
             screen = new Screen(canvas),
-            display = new Display(screen);
+            display = new Display(screen),
+            engine = new Engine([
+                new Clock(),
+                new Game(Paddles),
+                display
+            ]),
+            driver = new Driver(engine, window, 20);
+
+        driver.start();
 
         display.update({
             display: [
-                { line: [ [ 10, 20 ], [ 40, 20 ] ] } 
+                { line: [ [ 10, 20 ], [ 100, 20 ] ] } 
             ]
         });
 

@@ -49,7 +49,7 @@ define(
             }
 
             function clear() {
-                context.clearRect(0, 0, resolution[0], resolution[1]);
+                context.clearRect(0, 0, dimensions[0], dimensions[1]);
             }
     
             resolution = resolution || [ 128, 128 ];

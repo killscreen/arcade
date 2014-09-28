@@ -8,9 +8,9 @@ define(
 
         function Paddles(context, message) {
             function update(state) {
-                var now = (state.scene || {}).now || 0,
+                var now = (state.time || {}).scene || 0,
                     blink = (Math.round(now * 2) % 2) === 0;
-                
+                console.log(now, blink);
                 state.display = blink ? [] : TITLE;
             }
 

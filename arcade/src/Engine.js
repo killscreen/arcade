@@ -8,7 +8,7 @@ define(
             return {
                 update: function (state) {
                     engines.forEach(function (engine) {
-                        engines.update(state);
+                        engine.update(state);
                     });
                 }
             };        

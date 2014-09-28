@@ -11,19 +11,6 @@ define(
                 },
                 run: function (Scene, message) {
                     return director.run(Scene, message);
-                },
-                sequence: function (Scenes, message) {
-                    var i;
-
-                    function next(message) {
-                        var j = i;
-                        i = i + 1;
-                        return j < Scenes.length ?
-                                director.run(Scenes[i++], message).then(next),
-                                message;                                
-                    }
-    
-                    return next(message);
                 }
             };
         }

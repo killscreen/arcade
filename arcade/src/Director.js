@@ -26,7 +26,7 @@ define(
                     var context = new Context(this, fulfills.length),
                         scene = new Scene(message);
                     scenes.push(scene);
-                    return new Promise(executor);
+                    return; // new Promise(executor);
                 }
             };
         }
