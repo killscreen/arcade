@@ -15,4 +15,10 @@
         }]
     }
 
+    display: [{
+        sprite: ...
+        position: [ x, y ]
+        palette: {}   
+    }]
+
 }

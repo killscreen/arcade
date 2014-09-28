@@ -7,26 +7,42 @@ define(
             var context = canvas.getContext('2d'),
                 dimensions = [ canvas.width, canvas.height ];
 
+            function x(u) {
+                return u * dimensions[0] / resolution[0];
+            }
+
+            function y(v) {
+                return v * dimensions[1] / resolution[1];
+            }
+
             function line(start, end, color, palette) {
                 palette = palette || [ undefined, 'white' ];                
-                color = palette[color];
 
-                
+                context.strokeStyle = palette[color || 1];
+                context.lineWidth = (x(1) + y(1)) / 2;
 
                 context.beginPath();
-                context.moveTo(start[0], start[1]);
-                context.lineTo(end[0], end[1]);
-                context.closePath();
+                context.moveTo(x(start[0]), x(start[1]));
+                context.lineTo(y(end[0]), y(end[1]));
+                context.stroke();
             }
 
             function draw(sprite, position, palette) {
                 palette = palette || [ undefined, 'white' ];
                 position = position || [ 0, 0 ];
 
-                sprite.forEach(function (row, u) {
-                    row.forEach(function (pixel, v) {
-                        var c = palette[pixel ? 0 : 1];
-                        if (!c) return; // Nothing to draw here
+                sprite.forEach(function (row, v) {
+                    row.forEach(function (pixel, u) {
+                        var c = palette[pixel ? 1 : 0];
+                        if (c) { // Nothing to draw here
+                            context.fillStyle = c;
+                            context.fillRect(
+                                x(u + position[0]), 
+                                y(v + position[1]), 
+                                x(1), 
+                                y(1)
+                            );
+                        }
 
                     });
                 });
@@ -36,13 +52,14 @@ define(
                 context.clearRect(0, 0, resolution[0], resolution[1]);
             }
     
-            resolution = resolution || [ 256, 256 ];
+            resolution = resolution || [ 128, 128 ];
             resulution = Array.isArray(resolution) ? 
                 resolution : [ resolution, resolution ];
 
             return {
                 clear: clear,
-                draw: draw
+                draw: draw,
+                line: line
             };
 
         }

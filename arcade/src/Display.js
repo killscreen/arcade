@@ -9,7 +9,7 @@ define(
             function render(display) {
                 if (Array.isArray(display)) {
                     display.forEach(render);
-                } else {
+                } else if (display.sprite) {
                     screen.draw(
                         display.sprite, 
                         display.position, 
