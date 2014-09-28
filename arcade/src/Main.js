@@ -1,19 +1,17 @@
 /*global define,document*/
 
 define(
-    ['./Screen'],
-    function (Screen) {
+    ['./Screen', './Display'],
+    function (Screen, Display) {
         var canvas = document.getElementById('screen'),
-            screen = new Screen(canvas);
+            screen = new Screen(canvas),
+            display = new Display(screen);
 
-        screen.line([0, 0], [96, 64]);
-        screen.draw(
-            [
-                [ true, false, true ],
-                [ true, false, false ],
-                [ true, true, false ]
-            ],
-            [32, 72]
-        );
+        display.update({
+            display: [
+                { line: [ [ 10, 20 ], [ 40, 20 ] ] } 
+            ]
+        });
+
     }
 );

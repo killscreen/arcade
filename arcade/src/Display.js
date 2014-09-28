@@ -15,6 +15,13 @@ define(
                         display.position, 
                         display.palette
                     );   
+                } else if (display.line) {
+                    screen.line(
+                        display.line[0],
+                        display.line[1],
+                        display.palette,
+                        display.color
+                    );
                 }
             }
 

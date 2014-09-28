@@ -15,7 +15,7 @@ define(
                 return v * dimensions[1] / resolution[1];
             }
 
-            function line(start, end, color, palette) {
+            function line(start, end, palette, color) {
                 palette = palette || [ undefined, 'white' ];                
 
                 context.strokeStyle = palette[color || 1];
