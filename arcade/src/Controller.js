@@ -28,7 +28,7 @@ define(
 
             function direction(keys) {
                 return keys.map(function (key, index) {
-                    return pressed(key) ? 0 : (index * 2 - 1);
+                    return pressed(key) ? (index * 2 - 1) : 0;
                 }).reduce(function (a, b) {
                     return a + b;
                 }, 0);
