@@ -5,9 +5,15 @@ define(
         "use strict";
 
         var TITLE = {
-            text: "PADDLES",
-            position: [ 64 - 16, 64 ]
-        };
+                text: "PADDLES",
+                height: 16,
+                position: [ 64 - 32, 48 ]
+            },
+            MESSAGE = {
+                text: "- PRESS FIRE TO START -",
+                height: 8,
+                position: [ 64 - 54, 80 ]
+            };
 
         function Paddles(context, message) {
             
@@ -34,8 +40,8 @@ define(
                     blink = (Math.round(now * 2) % 2) === 0;
                                 
                 state.display = [
-                    blink ? [] : TITLE,
-                    depict(state.controller || {})
+                    TITLE,
+                    blink ? [] : MESSAGE
                 ];
             }
 
