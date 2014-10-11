@@ -2,6 +2,7 @@
 
 define(
     function () {
+        "use strict";
 
         var KEYS = {
                 LEFT: 37,
@@ -21,17 +22,20 @@ define(
             INITIALS = TRIGGERS.map(function () { return INITIAL; });
         
         function Controller(keyboard) {
+            function pressed(key) {
+                return keyboard.pressed(KEYS[key]);
+            }
 
             function direction(keys) {
                 return keys.map(function (key, index) {
-                    return keyboard.pressed(key) ? 0 : (index * 2 - 1);
-                }.reduce(function (a, b) {
+                    return pressed(key) ? 0 : (index * 2 - 1);
+                }).reduce(function (a, b) {
                     return a + b;
                 }, 0);
             }
 
             function trigger(prior, index) {
-                var on = keyboard.pressed(key);
+                var on = pressed(TRIGGERS[index]);
                 return {
                     on: on,
                     fire: on && !prior.on,
@@ -52,6 +56,6 @@ define(
 
         }
 
-        return Keyboard;
+        return Controller;
     }
 );

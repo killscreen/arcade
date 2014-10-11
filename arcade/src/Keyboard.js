@@ -2,6 +2,7 @@
 
 define(
     function () {
+        "use strict";
         
         function Keyboard(document) {
             var keys = {};
@@ -18,8 +19,8 @@ define(
             document.addEventListener('keyup', up);
 
             return {
-                pressed: function (code) { 
-                    return keys[code] || false; 
+                pressed: function (code) {
+                    return keys[code] || false;
                 }
             };
 
