@@ -2,6 +2,9 @@
 
 define(
     function () {
+        "use strict";
+        
+        var PALETTE = [ undefined, 'white' ];
         
         function Screen(canvas, resolution) {
             var context = canvas.getContext('2d'),
@@ -16,7 +19,7 @@ define(
             }
 
             function line(start, end, palette, color) {
-                palette = palette || [ undefined, 'white' ];                
+                palette = palette || PALETTE;
 
                 context.strokeStyle = palette[color || 1];
                 context.lineWidth = (x(1) + y(1)) / 2;
@@ -28,7 +31,7 @@ define(
             }
 
             function draw(sprite, position, palette) {
-                palette = palette || [ undefined, 'white' ];
+                palette = palette || PALETTE;
                 position = position || [ 0, 0 ];
 
                 sprite.forEach(function (row, v) {
@@ -37,9 +40,9 @@ define(
                         if (c) { // Nothing to draw here
                             context.fillStyle = c;
                             context.fillRect(
-                                x(u + position[0]), 
-                                y(v + position[1]), 
-                                x(1), 
+                                x(u + position[0]),
+                                y(v + position[1]),
+                                x(1),
                                 y(1)
                             );
                         }
@@ -47,19 +50,31 @@ define(
                     });
                 });
             }
+            
+            function print(text, position, height, palette, color) {
+                palette = palette || PALETTE;
+
+                context.font = y(height || 8) + 'px monospace';
+                context.textAlign = 'middle';
+                
+                context.fillStyle = palette[color || 1];
+                
+                context.fillText(text, x(position[0]), y(position[1]));
+            }
 
             function clear() {
                 context.clearRect(0, 0, dimensions[0], dimensions[1]);
             }
     
             resolution = resolution || [ 128, 128 ];
-            resulution = Array.isArray(resolution) ? 
-                resolution : [ resolution, resolution ];
+            resolution = Array.isArray(resolution) ?
+                    resolution : [ resolution, resolution ];
 
             return {
                 clear: clear,
                 draw: draw,
-                line: line
+                line: line,
+                print: print
             };
 
         }

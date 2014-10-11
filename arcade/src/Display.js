@@ -11,14 +11,22 @@ define(
                     display.forEach(render);
                 } else if (display.sprite) {
                     screen.draw(
-                        display.sprite, 
-                        display.position, 
+                        display.sprite,
+                        display.position,
                         display.palette
-                    );   
+                    );
                 } else if (display.line) {
                     screen.line(
                         display.line[0],
                         display.line[1],
+                        display.palette,
+                        display.color
+                    );
+                } else if (display.text) {
+                    screen.print(
+                        display.text,
+                        display.position,
+                        display.height,
                         display.palette,
                         display.color
                     );

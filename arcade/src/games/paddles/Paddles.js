@@ -4,12 +4,15 @@ define(
     function () {
         "use strict";
 
-        var TITLE = { line: [ [64, 32], [96, 16] ] };
+        var TITLE = {
+            text: "PADDLES",
+            position: [ 64 - 16, 64 ]
+        };
 
         function Paddles(context, message) {
             
             function on(trigger) {
-                return trigger.on;
+                return trigger.fire;
             }
             
             function offset(value) {
