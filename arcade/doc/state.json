@@ -13,12 +13,14 @@
             fire: ...just became pressed...
             click: ...was previously fired...        
         }]
-    }
+    },
 
     display: [{
         sprite: ...
         position: [ x, y ]
         palette: {}   
-    }]
+    }],
+
+    message: ...reserved for game-specific use...
 
 }

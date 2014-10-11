@@ -1,7 +1,8 @@
 /*global define*/
 
 define(
-    function () {
+    ['./Round'],
+    function (Round) {
         "use strict";
 
         var TITLE = {
@@ -15,7 +16,7 @@ define(
                 position: [ 64 - 54, 80 ]
             };
 
-        function Paddles(context, message) {
+        function Paddles(context) {
             
             function on(trigger) {
                 return trigger.fire;
@@ -25,13 +26,11 @@ define(
                 return value + 10;
             }
             
-            function depict(controller) {
-                var triggers = controller.triggers || [],
-                    direction = controller.direction || [ 0, 0 ];
-                
+            function result(message) {
                 return {
-                    sprite: [ triggers.map(on) ],
-                    position: direction.map(offset)
+                    text: message || "",
+                    height: 8,
+                    position: [ 64 - 54, 100 ]
                 };
             }
             
@@ -41,8 +40,13 @@ define(
                                 
                 state.display = [
                     TITLE,
-                    blink ? [] : MESSAGE
+                    blink ? [] : MESSAGE,
+                    result(state.message)
                 ];
+                
+                if (state.controller.triggers[0].fire) {
+                    context.run(Round);
+                }
             }
 
             return { update: update };

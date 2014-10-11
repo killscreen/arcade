@@ -4,13 +4,13 @@ define(
     function () {
         "use strict";
 
-        function Context(director, index) {
+        function Context(director, identifier) {
             return {
-                conclude: function (message) {
-                    return director.conclude(index, message);
+                conclude: function () {
+                    director.conclude(identifier);
                 },
-                run: function (Scene, message) {
-                    return director.run(Scene, message);
+                run: function (Scene) {
+                    director.run(Scene);
                 }
             };
         }

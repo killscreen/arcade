@@ -6,27 +6,32 @@ define(
         "use strict";
 
         function Director() {
-            var fulfills = [], scenes = [];
+            var identifiers = [],
+                scenes = {},
+                counter = 0;
             
-            function executor(fulfill) {
-                fulfills.push(fulfill);
+            function unique() {
+                counter = counter + 1;
+                return 'id' + counter;
             }
-
+            
             return {
                 scene: function () {
-                    return scenes[scenes.length - 1];
+                    return scenes[identifiers[identifiers.length - 1]];
                 },
-                conclude: function (index, message) {
-                    var fulfill = fulfills[index];
-                    fulfills.splice(index);
-                    scenes.splice(index);
-                    fulfill(message);
+                conclude: function (identifier) {
+                    if (scenes[identifier]) {
+                        identifiers.splice(identifiers.indexOf(identifier));
+                        delete scenes[identifier];
+                    }
                 },
-                run: function (Scene, message) {
-                    var context = new Context(this, fulfills.length),
-                        scene = new Scene(message);
-                    scenes.push(scene);
-                    return; // new Promise(executor);
+                run: function (Scene) {
+                    var identifier = unique(),
+                        context = new Context(this, identifier),
+                        scene = new Scene(context);
+                    scenes[identifier] = scene;
+                    identifiers.push(identifier);
+                    return;
                 }
             };
         }
