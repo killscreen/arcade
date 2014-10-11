@@ -5,7 +5,8 @@ define(
         "use strict";
     
         function Driver(engine, window, interval) {
-            var state = {};
+            var state = {},
+                active;
 
             function drive() {
                 engine.update(state);
@@ -13,10 +14,10 @@ define(
 
             return {
                 start: function () {
-                    interval = window.setInterval(drive, interval);
+                    active = window.setInterval(drive, interval);
                 },
                 stop: function () {
-                    window.clearInterval(interval);
+                    window.clearInterval(active);
                 }
             };
         }

@@ -22,19 +22,12 @@ define(
             controller = new Controller(keyboard),
             engine = new Engine([
                 new Clock(),
-                new Game(Paddles),
                 display,
-                controller
+                controller,
+                new Game(Paddles)
             ]),
             driver = new Driver(engine, window, 20);
 
         driver.start();
-
-        display.update({
-            display: [
-                { line: [ [ 10, 20 ], [ 100, 20 ] ] }
-            ]
-        });
-
     }
 );
