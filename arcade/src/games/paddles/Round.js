@@ -7,7 +7,7 @@ define(
         var WIDTH = 16,
             PLAYER = 1,
             COMPUTER = 0,
-            SPEED = 128,
+            SPEED = 64,
             LEFT = 24 + WIDTH / 4,
             RIGHT = 128 - 24 + WIDTH / 4,
             TOP = 8,
