@@ -90,6 +90,22 @@ define(
                 ];
             }
 
+
+            function bounce() {
+                if (ball[0] <= LEFT + 1) {
+                    velocity[0] = Math.abs(velocity[0]);
+                }
+                if (ball[0] >= RIGHT - 1) {
+                    velocity[0] = -Math.abs(velocity[0]);
+                }
+                if (ball[1] <= TOP + 1) {
+                    velocity[1] = Math.abs(velocity[1]);
+                }
+                if (ball[1] >= BOTTOM - 1) {
+                    velocity[1] = -Math.abs(velocity[1]);
+                }
+            }
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
@@ -102,6 +118,7 @@ define(
                 }
 
                 move(delta);
+                bounce();
                 paddles[PLAYER][0] += movement;
 
                 paddles = paddles.map(clamp);
