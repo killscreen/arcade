@@ -134,9 +134,11 @@ define(
                 }
             }
 
-            function predict(vertical) {
+            function predict(vertical, inaccuracy) {
                 var remaining = (vertical - ball[1]) / velocity[1],
                     predicted = ball[0] + velocity[0] * remaining;
+
+                predicted += inaccuracy * (ball[1] - vertical) / 2;
 
                 if (predicted < LEFT) {
                     predicted = LEFT + LEFT - predicted;
@@ -149,10 +151,11 @@ define(
                 return predicted;               
             }
 
-            function think(paddle, delta) {
+            function think(paddle, time) {
                 var left = paddle[0],
                     right = paddle[0] + WIDTH,
-                    prediction = predict(paddle[1]);
+                    inaccuracy = Math.sin(time),
+                    prediction = predict(paddle[1], inaccuracy);
 
                 return prediction < left ? -1 :
                         prediction > right ? 1 :
@@ -163,10 +166,11 @@ define(
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
                     initializer = initialized || initialize(score),
-                    delta = state.time.delta || 0,
+                    delta = state.time.delta || 0,                    
+                    time = state.time.game || 0,
                     direction = [
                         state.controller.direction[0],
-                        think(paddles[COMPUTER], delta)
+                        think(paddles[COMPUTER], time)
                     ],
                     movement = [
                         direction[0] * delta * SPEED,
