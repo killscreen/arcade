@@ -13,6 +13,7 @@ define(
             TOP = 8,
             FONT = 8,
             BOTTOM = 120,
+            MIDDLE = (TOP + BOTTOM) / 2,
             BOUNCE = 1.025,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
@@ -20,10 +21,18 @@ define(
                 [ [ LEFT, TOP ], [ LEFT, BOTTOM ] ],
                 [ [ RIGHT, TOP ], [ RIGHT, BOTTOM ] ]
             ],
+            DASH = (RIGHT - LEFT) / 16,
+            DASHES = [],
             GOALS = [ TOP, BOTTOM ],
             STEP = 1 / SPEED,
             PALETTE = [ undefined, 'white', 'gray' ];
-            
+        
+        while (DASHES.length < 8) {
+            DASHES.push([
+                [ LEFT + DASHES.length * DASH * 2 + DASH / 2, MIDDLE ],
+                [ LEFT + DASHES.length * DASH * 2 + DASH * 3 / 2, MIDDLE ]
+            ]);
+        }
   
         function Round(context) {
             var initialized = false,
@@ -197,7 +206,7 @@ define(
                 state.message = { score: score.map(check) };
 
                 state.display = paddles.map(display).concat(
-                    BOARD.map(line).map(gray)
+                    BOARD.concat(DASHES).map(line).map(gray)
                 ).concat([draw(ball)]).concat(score.map(text));
             }
 
