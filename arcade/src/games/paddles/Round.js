@@ -8,18 +8,43 @@ define(
             PLAYER = 1,
             COMPUTER = 0,
             SPEED = 128,
-            PALETTE = [ undefined, 'white', 'green' ];
+            LEFT = 24,
+            RIGHT = 128 - 24,
+            TOP = 8,
+            BOTTOM = 120,
+            BOARD = [
+                [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
+                [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
+                [ [ LEFT, TOP ], [ LEFT, BOTTOM ] ],
+                [ [ RIGHT, TOP ], [ RIGHT, BOTTOM ] ]
+            ],
+            PALETTE = [ undefined, 'white', 'gray' ];
             
   
         function Round(context) {
             var score = [ 0, 0 ],
-                paddles = [ [ 120, 16 ], [ 120, 112 ] ];
+                paddles = [ [ 54, 16 ], [ 54, 112 ] ];
+
+            function clamp(paddle) {
+                return [
+                    Math.min(Math.max(paddle[0], LEFT), RIGHT - WIDTH),
+                    paddle[1]
+                ];
+            }
+
+            function gray(display) {
+                display.color = 2;
+                display.palette = PALETTE;
+                return display;
+            }
+
+            function line(segment) {
+                return { line: segment };
+            }
 
             function display(paddle) {
-                return {
-                    line: [ paddle, [ paddle[0] + WIDTH, paddle[1] ] ],
-                    color: 2,
-                    palette: PALETTE
+                return { 
+                    line: [ paddle, [ paddle[0] + WIDTH, paddle[1] ] ] 
                 };
             }
 
@@ -32,7 +57,11 @@ define(
                 
                 paddles[PLAYER][0] += movement;
 
-                state.display = paddles.map(display);
+                paddles = paddles.map(clamp);
+
+                state.display = paddles.map(display).concat(
+                    BOARD.map(line).map(gray)
+                );
             }
 
             return { update: update };
