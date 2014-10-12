@@ -7,7 +7,8 @@ define(
         var WIDTH = 16,
             PLAYER = 1,
             COMPUTER = 0,
-            SPEED = 128;
+            SPEED = 128,
+            PALETTE = [ undefined, 'white', 'green' ];
             
   
         function Round(context) {
@@ -16,7 +17,9 @@ define(
 
             function display(paddle) {
                 return {
-                    line: [ paddle, [ paddle[0] + WIDTH, paddle[1] ] ]
+                    line: [ paddle, [ paddle[0] + WIDTH, paddle[1] ] ],
+                    color: 2,
+                    palette: PALETTE
                 };
             }
 
