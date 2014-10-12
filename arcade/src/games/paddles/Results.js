@@ -1,22 +1,21 @@
 /*global define*/
 
 define(
-    ['./Round'],
-    function (Round) {
+    function () {
         "use strict";
 
         var TITLE = {
-                text: "PADDLES",
-                height: 16,
+                text: "FINAL SCORE",
+                height: 12,
                 position: [ 64 - 32, 48 ]
             },
             MESSAGE = {
-                text: "- PRESS FIRE TO START -",
+                text: "- PRESS FIRE -",
                 height: 8,
-                position: [ 64 - 54, 80 ]
+                position: [ 64 - 32, 80 ]
             };
 
-        function Paddles(context) {
+        function Results(context) {
             
             function on(trigger) {
                 return trigger.fire;
@@ -44,13 +43,13 @@ define(
                 ];
                 
                 if (state.controller.triggers[0].fire) {
-                    context.run(Round);
+                    context.conclude();
                 }
             }
 
             return { update: update };
         }
 
-        return Paddles;
+        return Results;
     }
 );

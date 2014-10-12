@@ -1,7 +1,8 @@
 /*global define*/
 
 define(
-    function () {
+    ['./Results'],
+    function (Results) {
         "use strict";
 
         var WIDTH = 16,
@@ -203,11 +204,17 @@ define(
                     velocity[1] *= BOUNCE;
                 }
 
-                state.message = { score: score.map(check) };
+                score = score.map(check);
+                state.message = { score: score };
 
                 state.display = paddles.map(display).concat(
                     BOARD.concat(DASHES).map(line).map(gray)
                 ).concat([draw(ball)]).concat(score.map(text));
+
+                if (score[0] >= 7 || score[1] >= 7) {
+                    context.conclude();
+                    context.run(Results);
+                }
             }
 
             return { update: update };
