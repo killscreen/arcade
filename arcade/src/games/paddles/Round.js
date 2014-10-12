@@ -106,6 +106,14 @@ define(
                 }
             }
 
+            function collide(paddle, index) {
+                if (ball[0] >= paddle[0] && ball[1] <= paddle[1] + WIDTH) {
+                    if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
+                        velocity[1] = Math.abs(velocity[1]) * (1 - index * 2);
+                    }
+                }
+            }
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
@@ -119,6 +127,7 @@ define(
 
                 move(delta);
                 bounce();
+                paddles.forEach(collide);
                 paddles[PLAYER][0] += movement;
 
                 paddles = paddles.map(clamp);
