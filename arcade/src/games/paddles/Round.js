@@ -211,7 +211,7 @@ define(
                     BOARD.concat(DASHES).map(line).map(gray)
                 ).concat([draw(ball)]).concat(score.map(text));
 
-                if (score[0] >= 7 || score[1] >= 7) {
+                if (score[0] >= 2 || score[1] >= 2) {
                     context.conclude();
                     context.run(Results);
                 }
