@@ -13,6 +13,7 @@ define(
             TOP = 8,
             FONT = 8,
             BOTTOM = 120,
+            BOUNCE = 1.01,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
                 [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
@@ -138,7 +139,7 @@ define(
                 var remaining = (vertical - ball[1]) / velocity[1],
                     predicted = ball[0] + velocity[0] * remaining;
 
-                predicted += inaccuracy * (ball[1] - vertical) / 2;
+                predicted += inaccuracy * (ball[1] - vertical) / 3;
 
                 if (predicted < LEFT) {
                     predicted = LEFT + LEFT - predicted;
@@ -168,6 +169,7 @@ define(
                     initializer = initialized || initialize(score),
                     delta = state.time.delta || 0,                    
                     time = state.time.game || 0,
+                    sign = velocity[1] > 0,
                     direction = [
                         state.controller.direction[0],
                         think(paddles[COMPUTER], time)
@@ -186,6 +188,10 @@ define(
                     bounce();
                     paddles.forEach(collide);
                     delta -= STEP;
+                }
+
+                if ((velocity[1] > 0) !== sign) {
+                    velocity[1] *= BOUNCE;
                 }
 
                 state.message = { score: score.map(check) };
