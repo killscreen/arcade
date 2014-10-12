@@ -8,11 +8,11 @@ define(
             return {
                 update: function (state) {
                     engines.forEach(function (engine) {
-                        try {
+                        //try {
                             engine.update(state);
-                        } catch (exception) {
-                            console.log(exception);
-                        }
+                        //} catch (exception) {
+                        //    console.log(exception);
+                        //}
                     });
                 }
             };

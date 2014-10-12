@@ -18,12 +18,40 @@ define(
                 [ [ LEFT, TOP ], [ LEFT, BOTTOM ] ],
                 [ [ RIGHT, TOP ], [ RIGHT, BOTTOM ] ]
             ],
+            GOALS = [ TOP, BOTTOM ],
             PALETTE = [ undefined, 'white', 'gray' ];
             
   
         function Round(context) {
-            var score = [ 0, 0 ],
-                paddles = [ [ 54, 16 ], [ 54, 112 ] ];
+            var initialized = false,
+                ball,
+                velocity,
+                paddles = [ 
+                    [ ( LEFT + RIGHT ) / 2 - WIDTH / 2, TOP + WIDTH / 2 ], 
+                    [ ( LEFT + RIGHT ) / 2 - WIDTH / 2, BOTTOM - WIDTH / 2 ]
+                ];
+
+            function add(a, b) {
+                return a + b;
+            }
+
+            function initialize(score) {
+                var total = score.reduce(add, 0),
+                    server = (total + 1) % 2,
+                    direction = 1 - server * 2;
+
+                ball = [ 
+                    (LEFT + RIGHT) / 2,
+                    GOALS[server] + direction * WIDTH * 3 / 4
+                ];
+
+                velocity = [
+                    SPEED * direction,
+                    SPEED * direction
+                ];
+
+                initialized = true;
+            }
 
             function clamp(paddle) {
                 return [
@@ -48,6 +76,13 @@ define(
                 };
             }
 
+            function draw(ball) {
+                return { 
+                    line: [ ball, [ ball[0] + 1, ball[1] ] ] 
+                };
+            }
+
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
@@ -55,13 +90,17 @@ define(
                     direction = state.controller.direction[0],
                     movement = direction * delta * SPEED;
                 
+                if (!initialized) {
+                    initialize(score);
+                }
+
                 paddles[PLAYER][0] += movement;
 
                 paddles = paddles.map(clamp);
 
                 state.display = paddles.map(display).concat(
                     BOARD.map(line).map(gray)
-                );
+                ).concat([draw(ball)]);
             }
 
             return { update: update };
