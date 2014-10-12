@@ -100,12 +100,6 @@ define(
                 if (ball[0] >= RIGHT - 1) {
                     velocity[0] = -Math.abs(velocity[0]);
                 }
-                if (ball[1] <= TOP + 1) {
-                    velocity[1] = Math.abs(velocity[1]);
-                }
-                if (ball[1] >= BOTTOM - 1) {
-                    velocity[1] = -Math.abs(velocity[1]);
-                }
             }
 
             function collide(paddle, index) {
@@ -128,8 +122,11 @@ define(
             }
 
             function check(score, index) {
-                var goal = GOALS[1 - index];
-                if (ball[1] >= goal - 1 && ball[1] <= goal + 1) {
+                var goal = GOALS[1 - index],
+                    top = index === 1,
+                    collide = top ? (ball[1] < GOALS[0]) : (ball[1] > GOALS[1]);
+
+                if (collide) {
                     initialized = false;
                     return score + 1;
                 } else {
