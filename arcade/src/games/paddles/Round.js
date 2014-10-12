@@ -134,12 +134,28 @@ define(
                 }
             }
 
+            function predict(vertical) {
+                var remaining = (vertical - ball[1]) / velocity[1],
+                    predicted = ball[0] + velocity[0] * remaining;
+
+                if (predicted < LEFT) {
+                    predicted = LEFT + LEFT - predicted;
+                }
+
+                if (predicted > RIGHT) {
+                    predicted = RIGHT + RIGHT - predicted;
+                }
+
+                return predicted;               
+            }
+
             function think(paddle, delta) {
                 var left = paddle[0],
-                    right = paddle[1];
+                    right = paddle[0] + WIDTH,
+                    prediction = predict(paddle[1]);
 
-                return ball[0] < left ? -1 :
-                        ball[1] > right ? 1 :
+                return prediction < left ? -1 :
+                        prediction > right ? 1 :
                         0;             
             }
 
