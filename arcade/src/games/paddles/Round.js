@@ -83,6 +83,13 @@ define(
             }
 
 
+            function move(delta) {
+                ball = [
+                    ball[0] + velocity[0] * delta,
+                    ball[1] + velocity[1] * delta
+                ];
+            }
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
@@ -94,6 +101,7 @@ define(
                     initialize(score);
                 }
 
+                move(delta);
                 paddles[PLAYER][0] += movement;
 
                 paddles = paddles.map(clamp);
