@@ -134,18 +134,31 @@ define(
                 }
             }
 
+            function think(paddle, delta) {
+                var left = paddle[0],
+                    right = paddle[1];
+
+                return ball[0] < left ? -1 :
+                        ball[1] > right ? 1 :
+                        0;             
+            }
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
+                    initializer = initialized || initialize(score),
                     delta = state.time.delta || 0,
-                    direction = state.controller.direction[0],
-                    movement = direction * delta * SPEED;
+                    direction = [
+                        state.controller.direction[0],
+                        think(paddles[COMPUTER], delta)
+                    ],
+                    movement = [
+                        direction[0] * delta * SPEED,
+                        direction[1] * delta * SPEED
+                    ];
                 
-                if (!initialized) {
-                    initialize(score);
-                }
-
-                paddles[PLAYER][0] += movement;
+                paddles[PLAYER][0] += movement[0];
+                paddles[COMPUTER][0] += movement[1];
                 paddles = paddles.map(clamp);
 
                 while (delta > 0) {
