@@ -13,7 +13,7 @@ define(
             TOP = 8,
             FONT = 8,
             BOTTOM = 120,
-            BOUNCE = 1.01,
+            BOUNCE = 1.025,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
                 [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
@@ -139,7 +139,7 @@ define(
                 var remaining = (vertical - ball[1]) / velocity[1],
                     predicted = ball[0] + velocity[0] * remaining;
 
-                predicted += inaccuracy * (ball[1] - vertical) / 3;
+                predicted += inaccuracy * (ball[1] - vertical);
 
                 if (predicted < LEFT) {
                     predicted = LEFT + LEFT - predicted;
@@ -152,15 +152,15 @@ define(
                 return predicted;               
             }
 
-            function think(paddle, time) {
+            function think(paddle, time, difficulty) {
                 var left = paddle[0],
                     right = paddle[0] + WIDTH,
-                    inaccuracy = Math.sin(time),
+                    inaccuracy = Math.sin(time) / difficulty,
                     prediction = predict(paddle[1], inaccuracy);
 
                 return prediction < left ? -1 :
                         prediction > right ? 1 :
-                        0;             
+                        0;
             }
 
             function update(state) {
@@ -172,7 +172,7 @@ define(
                     sign = velocity[1] > 0,
                     direction = [
                         state.controller.direction[0],
-                        think(paddles[COMPUTER], time)
+                        think(paddles[COMPUTER], time, 0.5 + score[1] / 3)
                     ],
                     movement = [
                         direction[0] * delta * SPEED,
