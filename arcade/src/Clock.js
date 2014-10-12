@@ -12,7 +12,7 @@ define(
                 var now = Date.now() / 1000;
                 state.time = {
                     now: now,
-                    scene: now - first,
+                    game: now - first,
                     delta: now - previous
                 };
                 previous = now;

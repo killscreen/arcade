@@ -35,7 +35,7 @@ define(
             }
             
             function update(state) {
-                var now = (state.time || {}).scene || 0,
+                var now = (state.time || {}).game || 0,
                     blink = (Math.round(now * 2) % 2) === 0;
                                 
                 state.display = [
