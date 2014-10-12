@@ -48,8 +48,8 @@ define(
                 ];
 
                 velocity = [
-                    SPEED * direction,
-                    SPEED * direction
+                    SPEED * direction * 4 / 3,
+                    SPEED * direction * 4 / 3
                 ];
 
                 initialized = true;
