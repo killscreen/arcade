@@ -8,9 +8,10 @@ define(
             PLAYER = 1,
             COMPUTER = 0,
             SPEED = 128,
-            LEFT = 24,
-            RIGHT = 128 - 24,
+            LEFT = 24 + WIDTH / 4,
+            RIGHT = 128 - 24 + WIDTH / 4,
             TOP = 8,
+            FONT = 8,
             BOTTOM = 120,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
@@ -115,6 +116,21 @@ define(
                 }
             }
 
+            function text(total, index) {
+                return {
+                    text: String(total),
+                    height: FONT,
+                    position: [ 
+                        LEFT - WIDTH / 2, 
+                        GOALS[index] + FONT * (1 - index) - 1
+                    ]
+                };
+            }
+
+            function scores(score) {
+                return score.map(text);
+            }
+
             function update(state) {
                 var message = state.message || {},
                     score = message.score || [ 0, 0 ],
@@ -138,7 +154,7 @@ define(
 
                 state.display = paddles.map(display).concat(
                     BOARD.map(line).map(gray)
-                ).concat([draw(ball)]);
+                ).concat([draw(ball)]).concat(scores(score));
             }
 
             return { update: update };
