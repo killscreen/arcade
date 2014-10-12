@@ -109,7 +109,7 @@ define(
             }
 
             function collide(paddle, index) {
-                if (ball[0] >= paddle[0] && ball[1] <= paddle[0] + WIDTH) {
+                if (ball[0] >= paddle[0] && ball[0] <= paddle[0] + WIDTH) {
                     if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
                         velocity[1] = Math.abs(velocity[1]) * (1 - index * 2);
                     }
@@ -127,8 +127,14 @@ define(
                 };
             }
 
-            function scores(score) {
-                return score.map(text);
+            function check(score, index) {
+                var goal = GOALS[1 - index];
+                if (ball[1] >= goal - 1 && ball[1] <= goal + 1) {
+                    initialized = false;
+                    return score + 1;
+                } else {
+                    return score;
+                }
             }
 
             function update(state) {
@@ -152,9 +158,11 @@ define(
                     delta -= STEP;
                 }
 
+                state.message = { score: score.map(check) };
+
                 state.display = paddles.map(display).concat(
                     BOARD.map(line).map(gray)
-                ).concat([draw(ball)]).concat(scores(score));
+                ).concat([draw(ball)]).concat(score.map(text));
             }
 
             return { update: update };
