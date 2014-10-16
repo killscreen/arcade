@@ -9,7 +9,7 @@ define(
                 function rows(difficulty) {
                     var row = 0,
                         count = Math.min(3 + difficulty, ROWS),
-                        scale = Math.max(difficulty - ROWS + 3, 3),
+                        scale = Math.max(difficulty - ROWS + 7, 3),
                         step = 1 / scale,
                         x = 0,
                         bricks = [];
