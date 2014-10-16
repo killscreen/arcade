@@ -102,12 +102,15 @@ define(
                 if (ball[0] >= RIGHT - 1) {
                     velocity[0] = -Math.abs(velocity[0]);
                 }
+                if (ball[1] <= TOP + 1) {
+                    velocity[1] = Math.abs(velocity[0]);
+                }
             }
 
-            function collide(paddle, index) {
+            function collide(paddle) {
                 if (ball[0] >= paddle[0] && ball[0] <= paddle[0] + WIDTH) {
                     if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
-                        velocity[1] = Math.abs(velocity[1]) * (1 - index * 2);
+                        velocity[1] = -Math.abs(velocity[1]);
                     }
                 }
             }
