@@ -171,7 +171,11 @@ define(
                 }
             }
 
-            function concluded() {
+            function concluded(state) {
+                if (state.controller.triggers[0].fire) {
+                    level += 1;
+                    return true;
+                }
                 if (ball[1] > BOTTOM) {
                     lives -= 1;
                     initialized = false;
@@ -212,7 +216,7 @@ define(
                     velocity[1] *= BOUNCE;
                 }
 
-                if (concluded()) {
+                if (concluded(state)) {
                     context.conclude();
                     context.run(Round);
                 }
