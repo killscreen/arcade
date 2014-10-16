@@ -6,6 +6,7 @@ define(
         "use strict";
 
         var WIDTH = 16,
+            EDGE = 4,
             PLAYER = 0,
             SPEED = 64,
             LEFT = WIDTH / 2,
@@ -103,7 +104,7 @@ define(
                     velocity[0] = -Math.abs(velocity[0]);
                 }
                 if (ball[1] <= TOP + 1) {
-                    velocity[1] = Math.abs(velocity[0]);
+                    velocity[1] = Math.abs(velocity[1]);
                 }
             }
 
@@ -111,6 +112,12 @@ define(
                 if (ball[0] >= paddle[0] && ball[0] <= paddle[0] + WIDTH) {
                     if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
                         velocity[1] = -Math.abs(velocity[1]);
+                        if (ball[0] < paddle[0] + EDGE) {
+                            velocity[0] -= SPEED / 3;
+                        }
+                        if (ball[0] > paddle[0] + WIDTH - EDGE) {
+                            velocity[0] += SPEED / 3;
+                        }
                     }
                 }
             }
