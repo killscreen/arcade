@@ -117,12 +117,9 @@ define(
             }
 
             function hit(brick) {
-                if (ball[0] < brick.box[0][0] + 1) {
-                    velocity[0] *= -1;
-                }
-                if (ball[0] > brick.box[1][0] - 1) {
-                    velocity[0] *= -1;
-                }
+                var edge = (ball[0] < brick.box[0][0] + 1) ||
+                            (ball[0] > brick.box[1][0] - 1);
+                velocity[edge ? 0 : 1] *= -1;
             }
 
             function miss(brick) {
