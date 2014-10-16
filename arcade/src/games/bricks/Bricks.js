@@ -16,7 +16,7 @@ define(
                 position: [ 64 - 54, 80 ]
             };
 
-        function Paddles(context) {
+        function Bricks(context) {
             
             function on(trigger) {
                 return trigger.fire;
@@ -44,6 +44,10 @@ define(
                 ];
                 
                 if (state.controller.triggers[0].fire) {
+                    state.message = {
+                        lives: 3,
+                        level: 0
+                    };
                     context.run(Round);
                 }
             }
@@ -51,6 +55,6 @@ define(
             return { update: update };
         }
 
-        return Paddles;
+        return Bricks;
     }
 );
