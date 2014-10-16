@@ -116,6 +116,24 @@ define(
                 ];
             }
 
+            function hit(brick) {
+                if (ball[0] < brick.box[0][0] + 1) {
+                    velocity[0] *= -1;
+                }
+                if (ball[0] > brick.box[1][0] - 1) {
+                    velocity[0] *= -1;
+                }
+            }
+
+            function miss(brick) {
+                var missed = (ball[0] < brick.box[0][0]) ||
+                            (ball[0] > brick.box[1][0]) ||
+                            (ball[1] < brick.box[0][1]) ||
+                            (ball[1] > brick.box[1][1]);
+
+                return missed || hit(brick);                    
+            }
+
 
             function bounce() {
                 if (ball[0] <= LEFT + 1) {
@@ -178,6 +196,7 @@ define(
                     move(Math.min(STEP, delta));
                     bounce();
                     paddles.forEach(collide);
+                    bricks = bricks.filter(miss);
                     delta -= STEP;
                 }
 
