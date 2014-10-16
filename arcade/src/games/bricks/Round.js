@@ -171,6 +171,16 @@ define(
                 }
             }
 
+            function concluded() {
+                if (ball[1] > BOTTOM) {
+                    lives -= 1;
+                    return true;
+                }
+                if (bricks.length < 1) {
+                    level += 1;
+                    return true;
+                }
+            }
 
 
             function update(state) {
@@ -201,6 +211,10 @@ define(
                     velocity[1] *= BOUNCE;
                 }
 
+                if (concluded()) {
+                    context.conclude();
+                    context.run(Round);
+                }
                 state.message = { lives: lives, level: level };
 
                 state.display = paddles.map(display).concat(
