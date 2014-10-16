@@ -1,8 +1,8 @@
 /*global define*/
 
 define(
-    ['./Results'],
-    function (Results) {
+    ['./Results', "./Level"],
+    function (Results, Level) {
         "use strict";
 
         var WIDTH = 16,
@@ -31,19 +31,37 @@ define(
             var initialized = false,
                 lives,
                 level,
+                bricks,
                 ball,
                 velocity,
                 paddles = [ 
                     [ ( LEFT + RIGHT ) / 2 - WIDTH / 2, BOTTOM - WIDTH / 2 ]
                 ];
 
-            function add(a, b) {
-                return a + b;
+
+            function reposition(brick) {
+                var width = RIGHT - LEFT,
+                    start = TOP + 4,
+                    height = 4;
+
+                return {
+                    line: [
+                        [
+                            LEFT + width * brick[0],
+                            start + height * brick[2] 
+                        ],
+                        [
+                            LEFT + width * (brick[0] + brick[1]),
+                            start + height * brick[2] + height - 1
+                        ]
+                    ]
+                };
             }
 
             function initialize(message) {
                 lives = message.lives;
                 level = message.level;
+                bricks = new Level(level).bricks().map(reposition);
 
                 ball = [ 
                     (LEFT + RIGHT) / 2,
@@ -182,7 +200,7 @@ define(
                 ).concat([draw(ball)]).concat([
                     { text: "LEVEL " + level, position: [ 8, 122 ] },
                     { text: "LIVES " + lives, position: [ 87, 122 ] }
-                ]);
+                ]).concat(bricks);
 
             }
 
