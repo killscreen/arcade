@@ -24,7 +24,8 @@ define(
             ],
             GOALS = [ TOP, BOTTOM ],
             STEP = 1 / SPEED,
-            PALETTE = [ undefined, 'white', 'gray' ];
+            PALETTE = [ undefined, 'white', 'gray' ],
+            COLORS = [ 'red', 'purple', 'blue', 'cyan', 'green', 'yellow' ];
         
   
         function Round(context) {
@@ -54,7 +55,9 @@ define(
                             LEFT + width * (brick[0] + brick[1]),
                             start + height * brick[2] + height - 1
                         ]
-                    ]
+                    ],
+                    color: brick[2] % COLORS.length,
+                    palette: COLORS
                 };
             }
 
@@ -138,17 +141,6 @@ define(
                         }
                     }
                 }
-            }
-
-            function text(total, index) {
-                return {
-                    text: String(total),
-                    height: FONT,
-                    position: [ 
-                        LEFT - WIDTH / 2, 
-                        GOALS[index] + FONT * (1 - index) - 1
-                    ]
-                };
             }
 
             function check(score, index) {

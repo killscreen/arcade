@@ -19,9 +19,10 @@ define(
             }
 
             function line(start, end, palette, color) {
+                color = color !== undefined ? color : 1;
                 palette = palette || PALETTE;
 
-                context.strokeStyle = palette[color || 1];
+                context.strokeStyle = palette[color];
                 context.lineWidth = (x(1) + y(1)) / 2;
 
                 context.beginPath();
