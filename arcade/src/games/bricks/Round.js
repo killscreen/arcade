@@ -64,7 +64,7 @@ define(
             function initialize(message) {
                 lives = message.lives;
                 level = message.level;
-                bricks = new Level(level).bricks().map(reposition);
+                bricks = bricks || new Level(level).bricks().map(reposition);
 
                 ball = [ 
                     (LEFT + RIGHT) / 2,
@@ -174,7 +174,8 @@ define(
             function concluded() {
                 if (ball[1] > BOTTOM) {
                     lives -= 1;
-                    return true;
+                    initialized = false;
+                    return false;
                 }
                 if (bricks.length < 1) {
                     level += 1;
