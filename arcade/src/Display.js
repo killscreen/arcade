@@ -22,6 +22,13 @@ define(
                         display.palette,
                         display.color
                     );
+                } else if (display.box) {
+                    screen.box(
+                        display.box[0],
+                        display.box[1],
+                        display.palette,
+                        display.color
+                    );
                 } else if (display.text) {
                     screen.print(
                         display.text,

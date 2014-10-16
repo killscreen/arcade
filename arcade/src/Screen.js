@@ -26,10 +26,24 @@ define(
                 context.lineWidth = (x(1) + y(1)) / 2;
 
                 context.beginPath();
-                context.moveTo(x(start[0]), x(start[1]));
-                context.lineTo(y(end[0]), y(end[1]));
+                context.moveTo(x(start[0]), y(start[1]));
+                context.lineTo(x(end[0]), y(end[1]));
                 context.stroke();
             }
+
+            function box(start, end, palette, color) {
+                color = color !== undefined ? color : 1;
+                palette = palette || PALETTE;
+
+                context.fillStyle = palette[color];
+
+                context.fillRect(
+                    x(start[0]), 
+                    y(start[1]),
+                    x(end[0] - start[0]), 
+                    y(end[1] - start[1])
+                );
+            }    
 
             function draw(sprite, position, palette) {
                 palette = palette || PALETTE;
@@ -75,6 +89,7 @@ define(
                 clear: clear,
                 draw: draw,
                 line: line,
+                box: box,
                 print: print
             };
 

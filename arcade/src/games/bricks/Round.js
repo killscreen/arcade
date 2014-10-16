@@ -46,7 +46,7 @@ define(
                     height = 4;
 
                 return {
-                    line: [
+                    box: [
                         [
                             LEFT + width * brick[0],
                             start + height * brick[2] 
