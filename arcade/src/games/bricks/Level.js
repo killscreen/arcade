@@ -4,23 +4,30 @@ define(
     function () {
         "use strict";
 
-        var VARIETIES = [
-            function rows(difficulty) {
-                var row = 0,
-                    bricks = [];
-                    
-                for (row = 0; row < 8; row = row + 1) {
-                    bricks.push([ row / 10, 0.25, row ]);
-                }
+        var ROWS = 12,
+            VARIETIES = [
+                function rows(difficulty) {
+                    var row = 0,
+                        count = Math.min(3 + difficulty, ROWS),
+                        scale = Math.max(difficulty - ROWS + 3, 3),
+                        step = 1 / scale,
+                        x = 0,
+                        bricks = [];
+                        
+                    for (row = 0; row < count; row = row + 1) {
+                        for (x = 0; x + step <= 1; x = x + step) {
+                            bricks.push([ x, step, row ]);
+                        }
+                    }
 
-                return bricks;
-            },
-            function (difficulty) {
-                return [
-                    [ 0, 0.5, 1 ]
-                ];
-            }
-        ];
+                    return bricks;
+                },
+                function (difficulty) {
+                    return [
+                        [ 0, 0.5, 1 ]
+                    ];
+                }
+            ];
 
         function Level(level) {
             var type = level % VARIETIES.length,
