@@ -171,6 +171,7 @@ define(
                 }
                 if (bricks.length < 1) {
                     level += 1;
+                    lives += 1;
                     return true;
                 }
             }
