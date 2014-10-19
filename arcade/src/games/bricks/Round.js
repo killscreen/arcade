@@ -171,7 +171,8 @@ define(
                 }
                 if (bricks.length < 1) {
                     level += 1;
-                    lives += 1;
+                    lives += Math.floor(1 + level / 10);
+                    lives = Math.min(lives, 9);
                     return true;
                 }
             }
