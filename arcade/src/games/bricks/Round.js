@@ -117,7 +117,8 @@ define(
             }
 
             function hit(brick) {
-                var edge = (ball[0] < brick.box[0][0] + 1) ||
+                var edge = (velocity[0] > 0) ? 
+                            (ball[0] < brick.box[0][0] + 1) :
                             (ball[0] > brick.box[1][0] - 1);
                 velocity[edge ? 0 : 1] *= -1;
             }
