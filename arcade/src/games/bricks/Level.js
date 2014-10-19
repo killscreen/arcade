@@ -22,6 +22,22 @@ define(
 
                     return bricks;
                 },
+                function gaps(difficulty) {
+                    var row = 0,
+                        count = Math.min(5 + difficulty, ROWS),
+                        scale = Math.max(difficulty + 4, 3),
+                        step = 1 / scale,
+                        x = 0,
+                        bricks = [];
+                        
+                    for (row = 0; row < count; row = row + 1 + (row % 3)) {
+                        for (x = 0; x + step <= 1 + step / 2; x = x + step) {
+                            bricks.push([ x, step, row ]);
+                        }
+                    }
+
+                    return bricks;
+                },
                 function pyramid(difficulty) {
                     var row = 0,
                         count = Math.min(3 + difficulty * 5, ROWS),
@@ -60,6 +76,7 @@ define(
 
                     return bricks;
                 }
+
             ];
 
         function Level(level) {
