@@ -159,19 +159,6 @@ define(
                 }
             }
 
-            function check(score, index) {
-                var goal = GOALS[1 - index],
-                    top = index === 1,
-                    collide = top ? (ball[1] < GOALS[0]) : (ball[1] > GOALS[1]);
-
-                if (collide) {
-                    initialized = false;
-                    return score + 1;
-                } else {
-                    return score;
-                }
-            }
-
             function concluded(state) {
                 if (state.controller.triggers[0].fire) {
                     level += 1;
