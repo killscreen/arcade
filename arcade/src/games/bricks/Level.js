@@ -15,7 +15,7 @@ define(
                         bricks = [];
                         
                     for (row = 0; row < count; row = row + 1) {
-                        for (x = 0; x + step <= 1; x = x + step) {
+                        for (x = 0; x + step <= 1 + step / 2; x = x + step) {
                             bricks.push([ x, step, row ]);
                         }
                     }
@@ -23,9 +23,21 @@ define(
                     return bricks;
                 },
                 function (difficulty) {
-                    return [
-                        [ 0, 0.5, 1 ]
-                    ];
+                    var row = 0,
+                        count = Math.min(3 + difficulty, ROWS),
+                        scale = Math.max(difficulty - ROWS + 7, 3),
+                        step = 1 / scale,
+                        offset = step / 2,
+                        x = 0,
+                        bricks = [];
+                        
+                    for (row = 0; row < count; row = row + 1) {
+                        for (x = row * offset; x + step <= 1 - row * offset + step / 2; x = x + step) {
+                            bricks.push([ x, step, row ]);
+                        }
+                    }
+
+                    return bricks;
                 }
             ];
 
