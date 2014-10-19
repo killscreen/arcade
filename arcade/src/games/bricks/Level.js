@@ -24,8 +24,8 @@ define(
                 },
                 function (difficulty) {
                     var row = 0,
-                        count = Math.min(3 + difficulty, ROWS),
-                        scale = Math.max(difficulty - ROWS + 7, 3),
+                        count = Math.min(3 + difficulty * 5, ROWS),
+                        scale = Math.max(difficulty - ROWS / 4 + 7, 3),
                         step = 1 / scale,
                         offset = step / 2,
                         x = 0,
