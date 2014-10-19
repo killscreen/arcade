@@ -15,7 +15,7 @@ define(
             FONT = 8,
             BOTTOM = 128 - WIDTH,
             MIDDLE = (TOP + BOTTOM) / 2,
-            BOUNCE = 1.025,
+            BOUNCE = 1.0125,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
                 [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
