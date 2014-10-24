@@ -8,7 +8,7 @@ define(
         var TITLE = {
                 text: "BRICKS",
                 height: 16,
-                position: [ 64 - 34, 48 ]
+                position: [ 64 - 30, 48 ]
             },
             MESSAGE = {
                 text: "- PRESS FIRE TO START -",
