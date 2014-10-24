@@ -6,6 +6,23 @@ define(
 
         var ROWS = 12,
             VARIETIES = [
+                function pyramid(difficulty) {
+                    var row = 0,
+                        count = Math.min(3 + difficulty * 5, ROWS),
+                        scale = Math.max(difficulty - ROWS / 4 + 7, 3),
+                        step = 1 / scale,
+                        offset = step / 2,
+                        x = 0,
+                        bricks = [];
+                        
+                    for (row = 0; row < count; row = row + 1) {
+                        for (x = row * offset; x + step <= 1 - row * offset + step / 2; x = x + step) {
+                            bricks.push([ x, step, row ]);
+                        }
+                    }
+
+                    return bricks;
+                },
                 function rows(difficulty) {
                     var row = 0,
                         count = Math.min(3 + difficulty, ROWS),
@@ -32,23 +49,6 @@ define(
                         
                     for (row = 0; row < count; row = row + 1 + (row % 3)) {
                         for (x = 0; x + step <= 1 + step / 2; x = x + step) {
-                            bricks.push([ x, step, row ]);
-                        }
-                    }
-
-                    return bricks;
-                },
-                function pyramid(difficulty) {
-                    var row = 0,
-                        count = Math.min(3 + difficulty * 5, ROWS),
-                        scale = Math.max(difficulty - ROWS / 4 + 7, 3),
-                        step = 1 / scale,
-                        offset = step / 2,
-                        x = 0,
-                        bricks = [];
-                        
-                    for (row = 0; row < count; row = row + 1) {
-                        for (x = row * offset; x + step <= 1 - row * offset + step / 2; x = x + step) {
                             bricks.push([ x, step, row ]);
                         }
                     }

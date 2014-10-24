@@ -5,7 +5,7 @@ define(
     function (Results, Level, Conclusion) {
         "use strict";
 
-        var WIDTH = 16,
+        var WIDTH = 20,
             EDGE = 4,
             PLAYER = 0,
             SPEED = 64,

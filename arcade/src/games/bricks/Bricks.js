@@ -46,7 +46,7 @@ define(
                 if (state.controller.triggers[0].fire) {
                     state.message = {
                         lives: 3,
-                        level: 0
+                        level: 1
                     };
                     context.run(Round);
                 }
