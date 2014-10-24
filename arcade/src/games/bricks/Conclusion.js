@@ -14,7 +14,7 @@ define(
                 height: 8,
                 position: [ 64 - 34, 80 ]
             },
-            WIN = "YOU WIN!",
+            WIN = "YOU  WIN!",
             LOSE = "GAME OVER";
 
         function Bricks(context) {
