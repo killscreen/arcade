@@ -1,8 +1,8 @@
 /*global define*/
 
 define(
-    ['./Results', "./Level"],
-    function (Results, Level) {
+    ['./Results', "./Level", "./Conclusion"],
+    function (Results, Level, Conclusion) {
         "use strict";
 
         var WIDTH = 16,
@@ -161,13 +161,13 @@ define(
 
             function concluded(state) {
                 if (state.controller.triggers[0].fire) {
-                    level += 1;
+                    level += 1;                
                     return true;
                 }
                 if (ball[1] > BOTTOM) {
                     lives -= 1;
                     initialized = false;
-                    return false;
+                    return lives < 0;
                 }
                 if (bricks.length < 1) {
                     level += 1;
@@ -208,7 +208,7 @@ define(
 
                 if (concluded(state)) {
                     context.conclude();
-                    context.run(Round);
+                    context.run(level < 100 && lives > -1 ? Round : Conclusion);
                 }
                 state.message = { lives: lives, level: level };
 
