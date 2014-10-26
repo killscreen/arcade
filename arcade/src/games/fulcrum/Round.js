@@ -16,6 +16,7 @@ define(
             BOTTOM = 128 - 20,
             MIDDLE = (TOP + BOTTOM) / 2,
             TILT = 4,
+            SLOW = 0.25,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
                 [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
@@ -161,7 +162,7 @@ define(
                     burst = Math.abs(depth - waiting) / (WIDTH * 3 / 4);
                 ball = other();
                 waiting = depth;        
-                velocity[0] *= -1;
+                velocity[0] *= -SLOW;
                 velocity[0] += tilt * (1 - burst) * WIDTH;       
                 velocity[1] = -SPEED * burst;
                 tilt *= -1;
