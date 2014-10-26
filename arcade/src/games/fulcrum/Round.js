@@ -156,23 +156,21 @@ define(
             }
 
             function launch(depth) {
-                var center = paddle[0] + WIDTH / 2;
+                var center = paddles[0][0] + WIDTH / 2;
+                ball = other();
+                waiting = depth;               
+                velocity[1] = -Math.abs(velocity[1]);
+                tilt *= -1;
             }
 
             function collide(paddle) {
                 var center = paddle[0] + WIDTH / 2,
                     edge = center + WIDTH / 2 * tilt,
                     tilted = ball[0] * tilt;
+                
                 if (tilted >= center * tilt && tilted <= edge * tilt) {
                     if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
-                        velocity[1] = -Math.abs(velocity[1]);
-                        if (ball[0] < paddle[0] + EDGE) {
-                            velocity[0] -= SPEED / 3;
-                        }
-                        if (ball[0] > paddle[0] + WIDTH - EDGE) {
-                            velocity[0] += SPEED / 3;
-                        }
-                        tilt *= -1;
+                        launch((tilted - center * tilt) * tilt);
                     }
                 }
             }
@@ -214,7 +212,9 @@ define(
                 while (delta > 0) {
                     move(Math.min(STEP, delta));
                     bounce();
-                    paddles.forEach(collide);
+                    if (velocity[1] >= 0) {
+                        paddles.forEach(collide);
+                    }
                     bricks = bricks.filter(miss);
                     delta -= STEP;
                 }
