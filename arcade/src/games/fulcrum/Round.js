@@ -15,7 +15,7 @@ define(
             FONT = 8,
             BOTTOM = 128 - WIDTH,
             MIDDLE = (TOP + BOTTOM) / 2,
-            BOUNCE = 1.0125,
+            TILT = 4,
             BOARD = [
                 [ [ LEFT, TOP ], [ RIGHT, TOP ] ],
                 [ [ LEFT, BOTTOM ], [ RIGHT, BOTTOM ] ],
@@ -36,6 +36,7 @@ define(
                 bricks,
                 ball,
                 velocity,
+                tilt = -1,
                 paddles = [ 
                     [ ( LEFT + RIGHT ) / 2 - WIDTH / 2, BOTTOM - WIDTH / 2 ]
                 ];
@@ -99,7 +100,10 @@ define(
 
             function display(paddle) {
                 return { 
-                    line: [ paddle, [ paddle[0] + WIDTH, paddle[1] ] ] 
+                    line: [ 
+                        [ paddle[0], paddle[1] + tilt * TILT ], 
+                        [ paddle[0] + WIDTH, paddle[1] - tilt * TILT ] 
+                    ] 
                 };
             }
 
