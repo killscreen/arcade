@@ -73,7 +73,7 @@ define(
                 ];
 
                 velocity = [
-                    -SPEED,
+                    0,
                     -SPEED
                 ];
 
