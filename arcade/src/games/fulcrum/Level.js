@@ -4,7 +4,7 @@ define(
     function () {
         "use strict";
 
-        var ROWS = 12,
+        var ROWS = 16,
             VARIETIES = [
                 function pyramid(difficulty) {
                     var row = 0,
