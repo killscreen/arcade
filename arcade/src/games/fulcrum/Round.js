@@ -5,15 +5,15 @@ define(
     function (Results, Level, Conclusion) {
         "use strict";
 
-        var WIDTH = 20,
+        var WIDTH = 32,
             EDGE = 4,
             PLAYER = 0,
             SPEED = 122,
-            LEFT = WIDTH / 2,
-            RIGHT = 128 - WIDTH / 2,
-            TOP = WIDTH / 2,
+            LEFT = 8,
+            RIGHT = 120,
+            TOP = 8,
             FONT = 8,
-            BOTTOM = 128 - WIDTH,
+            BOTTOM = 128 - 20,
             MIDDLE = (TOP + BOTTOM) / 2,
             TILT = 4,
             BOARD = [
@@ -36,6 +36,7 @@ define(
                 bricks,
                 ball,
                 velocity,
+                movement,
                 waiting = WIDTH / 4,
                 tilt = -1,
                 paddles = [ 
@@ -156,9 +157,12 @@ define(
             }
 
             function launch(depth) {
-                var center = paddles[0][0] + WIDTH / 2;
+                var center = paddles[0][0] + WIDTH / 2,
+                    burst = depth - waiting;
                 ball = other();
-                waiting = depth;               
+                waiting = depth;        
+                velocity[0] *= -1;
+                velocity[0] += burst;       
                 velocity[1] = -Math.abs(velocity[1]);
                 tilt *= -1;
             }
@@ -199,14 +203,10 @@ define(
                     delta = state.time.delta || 0,                    
                     time = state.time.game || 0,
                     sign = velocity[1] > 0,
-                    direction = [
-                        state.controller.direction[0],
-                    ],
-                    movement = [
-                        direction[0] * delta * SPEED,
-                    ];
+                    direction = state.controller.direction[0];
                 
-                paddles[PLAYER][0] += movement[0];
+                movement = direction * SPEED;
+                paddles[PLAYER][0] += movement * delta;
                 paddles = paddles.map(clamp);
 
                 while (delta > 0) {
