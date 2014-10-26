@@ -163,6 +163,7 @@ define(
                         if (ball[0] > paddle[0] + WIDTH - EDGE) {
                             velocity[0] += SPEED / 3;
                         }
+                        tilt *= -1;
                     }
                 }
             }
