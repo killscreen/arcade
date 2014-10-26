@@ -8,7 +8,7 @@ define(
         var WIDTH = 20,
             EDGE = 4,
             PLAYER = 0,
-            SPEED = 64,
+            SPEED = 122,
             LEFT = WIDTH / 2,
             RIGHT = 128 - WIDTH / 2,
             TOP = WIDTH / 2,
@@ -24,6 +24,7 @@ define(
             ],
             GOALS = [ TOP, BOTTOM ],
             STEP = 1 / SPEED,
+            GRAVITY = 96,
             PALETTE = [ undefined, 'white', 'gray' ],
             COLORS = [ 'red', 'purple', 'blue', 'cyan', 'green', 'yellow' ];
         
@@ -114,6 +115,7 @@ define(
                     ball[0] + velocity[0] * delta,
                     ball[1] + velocity[1] * delta
                 ];
+                velocity[1] += GRAVITY * delta;
             }
 
             function hit(brick) {
@@ -199,10 +201,6 @@ define(
                     paddles.forEach(collide);
                     bricks = bricks.filter(miss);
                     delta -= STEP;
-                }
-
-                if ((velocity[1] > 0) !== sign) {
-                    velocity[1] *= BOUNCE;
                 }
 
                 if (concluded(state)) {
