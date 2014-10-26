@@ -17,7 +17,7 @@ define(
                         
                     for (row = 0; row < count; row = row + 1) {
                         for (x = row * offset; x + step <= 1 - row * offset + step / 2; x = x + step) {
-                            bricks.push([ x, step, row ]);
+                            bricks.push([ x, step, ROWS - row - 1 ]);
                         }
                     }
 
@@ -27,13 +27,13 @@ define(
                     var row = 0,
                         count = Math.min(3 + difficulty, ROWS),
                         scale = Math.max(difficulty - ROWS + 7, 3),
-                        step = 1 / scale,
-                        x = 0,
+                        step = 0.8 / scale,
+                        x = 0.1,
                         bricks = [];
                         
                     for (row = 0; row < count; row = row + 1) {
-                        for (x = 0; x + step <= 1 + step / 2; x = x + step) {
-                            bricks.push([ x, step, row ]);
+                        for (x = 0.1; x + step <= 0.9 + step / 2; x = x + step) {
+                            bricks.push([ x, step, ROWS - row - 1 ]);
                         }
                     }
 
@@ -49,7 +49,7 @@ define(
                         
                     for (row = 0; row < count; row = row + 1 + (row % 3)) {
                         for (x = 0; x + step <= 1 + step / 2; x = x + step) {
-                            bricks.push([ x, step, row ]);
+                            bricks.push([ x, step, ROWS - row - 1 ]);
                         }
                     }
 
@@ -68,7 +68,7 @@ define(
                         counter = 0;
                         for (x = 0; x + step <= 1 + step / 2; x = x + step) {
                             if (counter % 2 === row % 2) {
-                                bricks.push([ x, step, row ]);
+                                bricks.push([ x, step, ROWS - row - 1 ]);
                             }
                             counter = counter + 1;
                         }
