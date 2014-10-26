@@ -55,22 +55,23 @@ define(
 
                     return bricks;
                 },
-                function checkers(difficulty) {
+                function diamonds(difficulty) {
                     var row = 0,
+                        start = 2 + Math.floor(difficulty / 5),
+                        height = 3 + Math.floor(difficulty / 5),
                         count = Math.min(3 + difficulty, ROWS),
-                        scale = Math.round(Math.max(difficulty - ROWS + 7, 3) * 1.5),
+                        scale = Math.round(Math.max(difficulty + 5, 5) * 1.5),
                         step = 1 / scale,
+                        left,
                         x = 0,
                         counter = 0,
                         bricks = [];
                         
-                    for (row = 0; row < count; row = row + 1) {
+                    for (row = 0; row < height; row = row + 1) {
                         counter = 0;
-                        for (x = 0; x + step <= 1 + step / 2; x = x + step) {
-                            if (counter % 2 === row % 2) {
-                                bricks.push([ x, step, ROWS - row - 1 ]);
-                            }
-                            counter = counter + 1;
+                        left = Math.max(row, height - row) * step;
+                        for (x = left; x + step <= 1 - left + step / 2; x = x + step) {
+                            bricks.push([ x, step, ROWS - row - start - 1 ]);
                         }
                     }
 
