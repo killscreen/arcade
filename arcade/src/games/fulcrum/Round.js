@@ -13,7 +13,7 @@ define(
             RIGHT = 120,
             TOP = 8,
             FONT = 8,
-            BOTTOM = 128 - 20,
+            BOTTOM = 128 - 16,
             MIDDLE = (TOP + BOTTOM) / 2,
             TILT = 4,
             SLOW = 0.25,
@@ -54,7 +54,7 @@ define(
                     box: [
                         [
                             LEFT + width * brick[0] + 0.5,
-                            start + height * brick[2] 
+                            start + height * brick[2]
                         ],
                         [
                             LEFT + width * (brick[0] + brick[1]) - 0.5,
