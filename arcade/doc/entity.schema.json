@@ -1,0 +1,17 @@
+{
+    "name": "Entity",
+    "properties": {
+        "position": {
+            "type": "array",
+            "description": "Position of the entity's origin in contextual space.",             
+            "items": { "type": "number" }
+        },
+        "display": {
+            "type": "Displayable"
+            "description": "Sprite to draw at the specified position."
+        },
+        "shape": {
+            
+        }            
+    }
+}

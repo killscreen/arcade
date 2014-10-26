@@ -21,6 +21,10 @@
         palette: {}   
     }],
 
+    entities: {
+        identifier: entity
+    },
+
     message: ...reserved for game-specific use...
 
 }
