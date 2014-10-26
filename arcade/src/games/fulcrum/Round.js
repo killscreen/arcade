@@ -50,11 +50,11 @@ define(
                 return {
                     box: [
                         [
-                            LEFT + width * brick[0],
+                            LEFT + width * brick[0] + 0.5,
                             start + height * brick[2] 
                         ],
                         [
-                            LEFT + width * (brick[0] + brick[1]) - 1,
+                            LEFT + width * (brick[0] + brick[1]) - 0.5,
                             start + height * brick[2] + height - 1
                         ]
                     ],
