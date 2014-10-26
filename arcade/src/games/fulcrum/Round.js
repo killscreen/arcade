@@ -120,7 +120,6 @@ define(
                 var edge = (velocity[0] > 0) ? 
                             (ball[0] < brick.box[0][0] + 1) :
                             (ball[0] > brick.box[1][0] - 1);
-                velocity[edge ? 0 : 1] *= -1;
             }
 
             function miss(brick) {

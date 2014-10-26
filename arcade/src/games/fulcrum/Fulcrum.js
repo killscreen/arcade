@@ -7,6 +7,7 @@ define(
 
         var TITLE = {
                 text: "FULCRUM",
+                palette: [ 'yellow', 'yellow' ],
                 height: 16,
                 position: [ 64 - 34, 48 ]
             },

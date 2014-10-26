@@ -7,6 +7,7 @@ define(
 
         var TITLE = {
                 height: 16,
+                palette: [ 'yellow', 'yellow' ],
                 position: [ 64 - 44, 48 ]
             },
             MESSAGE = {
