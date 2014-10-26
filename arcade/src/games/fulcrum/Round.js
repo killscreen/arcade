@@ -158,12 +158,12 @@ define(
 
             function launch(depth) {
                 var center = paddles[0][0] + WIDTH / 2,
-                    burst = depth - waiting;
+                    burst = Math.abs(depth - waiting) / (WIDTH * 3 / 4);
                 ball = other();
                 waiting = depth;        
                 velocity[0] *= -1;
-                velocity[0] += burst;       
-                velocity[1] = -Math.abs(velocity[1]);
+                velocity[0] += tilt * (1 - burst) * WIDTH;       
+                velocity[1] = -SPEED * burst;
                 tilt *= -1;
             }
 
