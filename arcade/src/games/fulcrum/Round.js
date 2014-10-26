@@ -151,7 +151,10 @@ define(
             }
 
             function collide(paddle) {
-                if (ball[0] >= paddle[0] && ball[0] <= paddle[0] + WIDTH) {
+                var center = paddle[0] + WIDTH / 2,
+                    edge = center + WIDTH / 2 * tilt,
+                    tilted = ball[0] * tilt;
+                if (tilted >= center * tilt && tilted <= edge * tilt) {
                     if (ball[1] <= paddle[1] + 1 && ball[1] >= paddle[1] - 1) {
                         velocity[1] = -Math.abs(velocity[1]);
                         if (ball[0] < paddle[0] + EDGE) {
