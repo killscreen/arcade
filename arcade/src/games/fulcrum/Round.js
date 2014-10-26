@@ -36,6 +36,7 @@ define(
                 bricks,
                 ball,
                 velocity,
+                waiting = WIDTH / 4,
                 tilt = -1,
                 paddles = [ 
                     [ ( LEFT + RIGHT ) / 2 - WIDTH / 2, BOTTOM - WIDTH / 2 ]
@@ -79,6 +80,10 @@ define(
                 ];
 
                 initialized = true;
+            }
+
+            function other() { 
+                return [ paddles[0][0] + WIDTH / 2 + waiting, paddles[0][1] ];
             }
 
             function clamp(paddle) {
@@ -150,6 +155,10 @@ define(
                 }
             }
 
+            function launch(depth) {
+                var center = paddle[0] + WIDTH / 2;
+            }
+
             function collide(paddle) {
                 var center = paddle[0] + WIDTH / 2,
                     edge = center + WIDTH / 2 * tilt,
@@ -186,7 +195,6 @@ define(
                 }
             }
 
-
             function update(state) {
                 var message = state.message || {},
                     initializer = initialized || initialize(message),
@@ -219,7 +227,7 @@ define(
 
                 state.display = paddles.map(display).concat(
                     BOARD.map(line).map(gray)
-                ).concat([draw(ball)]).concat([
+                ).concat([draw(ball), draw(other())]).concat([
                     { text: "LEVEL " + level, position: [ 8, 122 ] },
                     { text: "LIVES " + lives, position: [ 87, 122 ] }
                 ]).concat(bricks);
