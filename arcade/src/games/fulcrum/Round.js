@@ -163,6 +163,7 @@ define(
                 ball = other();
                 waiting = depth;        
                 velocity[0] *= -SLOW;
+                velocity[0] += movement;
                 velocity[0] += tilt * (1 - burst) * WIDTH;       
                 velocity[1] = -SPEED * burst;
                 tilt *= -1;
@@ -206,7 +207,7 @@ define(
                     sign = velocity[1] > 0,
                     direction = state.controller.direction[0];
                 
-                movement = direction * SPEED;
+                movement = direction * (SPEED / 2);
                 paddles[PLAYER][0] += movement * delta;
                 paddles = paddles.map(clamp);
 
