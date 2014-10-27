@@ -163,7 +163,7 @@ define(
                 ball = other();
                 waiting = depth;        
                 velocity[0] *= -SLOW;
-                velocity[0] += movement;
+                velocity[0] += movement / 2;
                 velocity[0] += tilt * (1 - burst) * WIDTH;       
                 velocity[1] = -SPEED * burst;
                 tilt *= -1;
